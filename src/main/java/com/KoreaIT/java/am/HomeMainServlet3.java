@@ -7,10 +7,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/home/main")
-public class HomeMainServlet extends HttpServlet {
+@WebServlet("/home/printDan")
+public class HomeMainServlet3 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Hello World!").append(request.getContextPath());
+		response.setContentType("text/html; charset=UTF-8");
+		
+		response.getWriter().append("9단<br>");
+		
+		int dan = 9;
+		for(int i = 1; i <= 9; i++) {
+			response.getWriter().append(String.format("%d * %d = %d<br>", dan, i, dan * i));
+		}
 	}
 }

@@ -29,4 +29,14 @@
     <servlet-name>HomeMainServlet2</servlet-name>
     <url-pattern>/HomeMainServlet2</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>HomeMainServlet3</display-name>
+    <servlet-name>HomeMainServlet3</servlet-name>
+    <servlet-class>com.KoreaIT.java.am.HomeMainServlet3</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HomeMainServlet3</servlet-name>
+    <url-pattern>/HomeMainServlet3</url-pattern>
+  </servlet-mapping>
 </web-app>
