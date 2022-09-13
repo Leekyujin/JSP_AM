@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/home/printDan")
+@WebServlet("/home/printDan2")
 public class HomeMainServlet3 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -29,7 +29,7 @@ public class HomeMainServlet3 extends HttpServlet {
 		String inputedColor = request.getParameter("color");
 		
 		if (inputedColor == null) {
-			inputedColor = "black";
+			inputedColor = "";
 		}
 		
 		int dan = Integer.parseInt(inputedDan);
