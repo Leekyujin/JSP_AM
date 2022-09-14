@@ -1,4 +1,3 @@
-<%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -13,7 +12,7 @@ Map<String, Object> articleRow = (Map<String, Object>)request.getAttribute("arti
 <title>게시물 상세보기</title>
 </head>
 <body>
-	<h1>게시물 상세보기</h1>
+	<h1><%=(int)articleRow.get("id") %>번 게시물 상세보기</h1>
 	
 	<div>번호 : <%=(int)articleRow.get("id") %></div>
 	<div>날짜 : <%=(LocalDateTime)articleRow.get("regDate") %></div>
