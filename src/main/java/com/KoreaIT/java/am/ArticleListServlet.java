@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDateTime;
 
 import com.KoreaIT.java.am.util.DBUtil;
 
@@ -51,7 +52,8 @@ public class ArticleListServlet extends HttpServlet {
 
 			List<Map<String, Object>> articleRows = dbUtil.selectRows(conn, sql);
 
-			response.getWriter().append(articleRows.toString());
+			request.setAttribute("articleRows", articleRows);
+			request.getRequestDispatcher("/jsp/article/list.jsp").forward(request, response);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
