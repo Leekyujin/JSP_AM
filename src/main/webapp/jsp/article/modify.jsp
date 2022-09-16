@@ -34,7 +34,7 @@ Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("art
 		<div>
 			내용 :
 			<textarea autocomplete="off" placeholder="내용을 입력해주세요" name="body"
-				type="text" /><%=(String) articleRow.get("body")%></textarea>
+				type="text" ><%=(String) articleRow.get("body")%></textarea>
 		</div>
 		<div>
 			<button type="submit">수정</button>
