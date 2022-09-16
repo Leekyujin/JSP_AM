@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/article/doWrite")
 public class ArticleDoWriteServlet extends HttpServlet {
-
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -54,10 +54,6 @@ public class ArticleDoWriteServlet extends HttpServlet {
 			int id = DBUtil.insert(conn, sql);
 			
 			response.getWriter().append(String.format("<script>alert('%d번 글이 생성 되었습니다.'); location.replace('list');</script>", id));
-			
-			request.setAttribute("title", title);
-			request.setAttribute("body", body);
-			request.getRequestDispatcher("/jsp/article/write.jsp").forward(request, response);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -70,6 +66,12 @@ public class ArticleDoWriteServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 }

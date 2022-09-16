@@ -14,10 +14,14 @@ int totalPage = (int)request.getAttribute("totalPage");
 <meta charset="UTF-8">
 <title>게시물 리스트</title>
 </head>
-<body>
+<body align="center">
 	<h1>게시물 리스트</h1>
 	
-	<table border="1" bordercolor="green">
+	<div>
+		<a href="write">글쓰기</a>
+	</div>
+	
+	<table border="1" bordercolor="lightseagreen" align="center">
 		<colgroup>
 			<col width="50"/>
 			<col width="200"/>
