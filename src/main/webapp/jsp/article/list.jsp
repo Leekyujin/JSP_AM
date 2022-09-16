@@ -14,14 +14,14 @@ int totalPage = (int)request.getAttribute("totalPage");
 <meta charset="UTF-8">
 <title>게시물 리스트</title>
 </head>
-<body align="center">
+<body>
 	<h1>게시물 리스트</h1>
 	
 	<div>
 		<a href="write">글쓰기</a>
 	</div>
 	
-	<table border="1" bordercolor="lightseagreen" align="center">
+	<table border="1" bordercolor="lightseagreen">
 		<colgroup>
 			<col width="50"/>
 			<col width="200"/>
@@ -30,6 +30,7 @@ int totalPage = (int)request.getAttribute("totalPage");
 			<th>번호</th>
 			<th>날짜</th>
 			<th>제목</th>
+			<th>수정</th>
 			<th>삭제</th>
 		</tr>
 	
@@ -40,6 +41,7 @@ int totalPage = (int)request.getAttribute("totalPage");
 			<td><%=articleRow.get("id") %></td>
 			<td><%=articleRow.get("regDate") %></td>
 			<td><a href="detail?id=<%=articleRow.get("id") %>"><%=articleRow.get("title") %></a></td>
+			<td><a href="modify?id=<%=articleRow.get("id") %>">수정하기</a></td>
 			<td><a href="doDelete?id=<%=articleRow.get("id") %>">삭제하기</a></td>
 		</tr>
 		<%
