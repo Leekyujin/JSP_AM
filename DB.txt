@@ -12,14 +12,50 @@ CREATE TABLE article(
     `body` TEXT NOT NULL
 );
 
+# 회원 테이블 생성
+CREATE TABLE `member`(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    loginId CHAR(100) NOT NULL UNIQUE,
+    loginPw CHAR(100) NOT NULL,
+    `name` CHAR(100) NOT NULL
+);
+
 DESC article;
+DESC `member`;
 
 SELECT * FROM article;
+SELECT * FROM `member`;
 
 INSERT INTO article
 SET regDate = NOW(),
 title = CONCAT('제목__', RAND()),
 `body` = CONCAT('내용__', RAND());
+
+INSERT INTO `member`
+SET regDate = NOW(),
+loginId = 'test1',
+loginPw = 'test1',
+`name` = 'test1';
+
+INSERT INTO `member`
+SET regDate = NOW(),
+loginId = 'test2',
+loginPw = 'test2',
+`name` = 'test2';
+
+INSERT INTO `member`
+SET regDate = NOW(),
+loginId = 'test3',
+loginPw = 'test3',
+`name` = 'test3';
+
+SELECT * FROM article;
+SELECT * FROM `member`;
+
+-- INSERT INTO article (regDate, title, `body`)
+-- SELECT NOW(), CONCAT('제목__', RAND()), CONCAT('내용__', RAND())
+-- FROM article;
 
 -- insert INTO article
 -- SET regDate = NOW(),
