@@ -27,31 +27,36 @@ DESC `member`;
 SELECT * FROM article;
 SELECT * FROM `member`;
 
+# 게시물 테스트데이터 생성
 INSERT INTO article
 SET regDate = NOW(),
 title = CONCAT('제목__', RAND()),
 `body` = CONCAT('내용__', RAND());
 
+# 회원 테스트데이터 생성
 INSERT INTO `member`
 SET regDate = NOW(),
 loginId = 'test1',
 loginPw = 'test1',
-`name` = 'test1';
+`name` = '유저1';
 
 INSERT INTO `member`
 SET regDate = NOW(),
 loginId = 'test2',
 loginPw = 'test2',
-`name` = 'test2';
+`name` = '유저2';
 
 INSERT INTO `member`
 SET regDate = NOW(),
 loginId = 'test3',
 loginPw = 'test3',
-`name` = 'test3';
+`name` = '유저3';
 
 SELECT * FROM article;
 SELECT * FROM `member`;
+
+ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER regDate;
+UPDATE article SET memberId = 2 WHERE memberId = 0;
 
 -- INSERT INTO article (regDate, title, `body`)
 -- SELECT NOW(), CONCAT('제목__', RAND()), CONCAT('내용__', RAND())
