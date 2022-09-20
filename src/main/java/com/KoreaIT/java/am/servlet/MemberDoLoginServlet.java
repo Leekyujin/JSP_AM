@@ -15,8 +15,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/member/doJoin")
-public class MemberDoJoinServlet extends HttpServlet {
+@WebServlet("/member/doLogin")
+public class MemberDoLoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -44,20 +44,8 @@ public class MemberDoJoinServlet extends HttpServlet {
 			String loginId = request.getParameter("loginId");
 			String loginPw = request.getParameter("loginPw");
 			String name = request.getParameter("name");
-			
-			SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt");
-			sql.append("FROM `member`");
-			sql.append("WHERE loginId = ?", loginId);
-			
-			boolean isJoinAvailableLoginId = DBUtil.selectRowIntValue(conn, sql) == 0;
-			
-			if (isJoinAvailableLoginId == false) {
-				response.getWriter()
-				.append(String.format("<script>alert('%s는 이미 사용중인 아이디입니다.'); location.replace('../home/main');</script>", loginId));
-				return;
-			}
 
-			sql = SecSql.from("INSERT INTO `member`");
+			SecSql sql = SecSql.from("INSERT INTO `member`");
 			sql.append("SET regDate = NOW()");
 			sql.append(", loginId = ?", loginId);
 			sql.append(", loginPw = ?", loginPw);
