@@ -38,7 +38,7 @@ Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("art
 		</div>
 		<div>
 			<button type="submit">수정</button>
-			<a href="list">리스트로 돌아가기</a>
+			<button><a href="list">리스트로 돌아가기</a></button>
 		</div>
 	</form>
 </body>

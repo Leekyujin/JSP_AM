@@ -19,7 +19,7 @@ int totalPage = (int) request.getAttribute("totalPage");
 
 	<%@ include file="../part/topBar.jspf"%>
 	<div>
-		<a href="write">글쓰기</a>
+		<button><a href="write">글쓰기</a></button>
 	</div>
 	<table border="2" bordercolor="green">
 		<colgroup>
@@ -41,7 +41,7 @@ int totalPage = (int) request.getAttribute("totalPage");
 			<td><%=articleRow.get("id")%></td>
 			<td><%=articleRow.get("regDate")%></td>
 			<td><a href="detail?id=<%=articleRow.get("id")%>"><%=articleRow.get("title")%></a></td>
-			<td><%=articleRow.get("memberId") %></td>
+			<td><%=articleRow.get("writer") %></td>
 			<td><a href="modify?id=<%=articleRow.get("id")%>">수정하기</a></td>
 			<td><a href="doDelete?id=<%=articleRow.get("id")%>">삭제하기</a></td>
 		</tr>
@@ -50,10 +50,10 @@ int totalPage = (int) request.getAttribute("totalPage");
 		%>
 	</table>
 	<style type="text/css">
-.page>a.red {
-	color: red;
-}
-</style>
+		.page>a.red {
+		color: red;
+		}
+	</style>
 	<div class="page">
 		<%
 		if (cPage > 1) {

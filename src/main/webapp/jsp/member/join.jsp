@@ -81,7 +81,7 @@
 		</div>
 		<div>
 			<button type="submit">가입</button>
-			<a href="../home/main">취소</a>
+			<button><a href="../home/main">취소</a></button>
 		</div>
 	</form>
 	

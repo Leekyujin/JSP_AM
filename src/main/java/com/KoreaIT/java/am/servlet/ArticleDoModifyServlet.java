@@ -31,7 +31,7 @@ public class ArticleDoModifyServlet extends HttpServlet {
 					String.format("<script>alert('로그인 후 이용해주세요'); location.replace('../member/login');</script>"));
 			return;
 		}
-
+		
 		// DB 연결
 
 		Connection conn = null;
@@ -49,11 +49,11 @@ public class ArticleDoModifyServlet extends HttpServlet {
 
 		try {
 			conn = DriverManager.getConnection(Config.getDBUrl(), Config.getDBUser(), Config.getDBPassword());
-
+			
 			int id = Integer.parseInt(request.getParameter("id"));
 			String title = request.getParameter("title");
 			String body = request.getParameter("body");
-
+			
 			SecSql sql = SecSql.from("UPDATE article");
 			sql.append("SET title = ?", title);
 			sql.append(", `body` = ?", body);
@@ -62,7 +62,7 @@ public class ArticleDoModifyServlet extends HttpServlet {
 			DBUtil.update(conn, sql);
 
 			response.getWriter().append(String
-					.format("<script>alert('%d번 글이 수정 되었습니다.'); location.replace('detail?id=%d');</script>", id));
+					.format("<script>alert('%d번 글이 수정 되었습니다.'); location.replace('detail?id=%d');</script>", id, id));
 
 		} catch (SQLException e) {
 			e.printStackTrace();

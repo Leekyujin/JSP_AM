@@ -18,7 +18,7 @@
 		<div><%=loginedMemebrRow.get("name")%>
 			님 환영합니다
 		</div>
-		<a href="../member/doLogout">로그아웃</a>
+		<button><a href="../member/doLogout">로그아웃</a></button>
 	</div>
 	<%
 	}
@@ -28,8 +28,8 @@
 	if (!isLogined) {
 	%>
 	<div>
-		<a href="../member/login">로그인</a>
-		<a href="../member/join">회원가입</a>
+		<button><a href="../member/login">로그인</a></button>
+		<button><a href="../member/join">회원가입</a></button>
 	</div>
 	<%
 	}
@@ -38,5 +38,5 @@
 
 
 <div>
-	<a href="../article/list">게시물 리스트</a>
+	<button><a href="../article/list">게시물 리스트</a></button>
 </div>

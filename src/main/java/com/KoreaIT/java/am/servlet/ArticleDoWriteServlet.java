@@ -24,7 +24,7 @@ public class ArticleDoWriteServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setContentType("text/html; charset=UTF-8");
-
+		
 		HttpSession session = request.getSession();
 
 		if (session.getAttribute("loginedMemberId") == null) {
@@ -50,12 +50,11 @@ public class ArticleDoWriteServlet extends HttpServlet {
 
 		try {
 			conn = DriverManager.getConnection(Config.getDBUrl(), Config.getDBUser(), Config.getDBPassword());
-
+			
 			String title = request.getParameter("title");
 			String body = request.getParameter("body");
-
 			int loginedMemberId = (int) session.getAttribute("loginedMemberId");
-
+			
 			SecSql sql = SecSql.from("INSERT INTO article");
 			sql.append("SET regDate = NOW()");
 			sql.append(", title = ?", title);

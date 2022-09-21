@@ -52,7 +52,7 @@
 		<div>
 			<button type="submit">로그인</button>
 
-			<a href="../home/main">취소</a>
+			<button><a href="../home/main">취소</a></button>
 
 		</div>
 	</form>
