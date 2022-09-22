@@ -56,7 +56,6 @@ public class MainPageServlet extends HttpServlet {
 				SecSql sql = SecSql.from("SELECT * FROM `member`");
 				sql.append("WHERE id = ?;", loginedMemberId);
 				loginedMemebrRow = DBUtil.selectRow(conn, sql);
-
 			}
 
 			request.setAttribute("isLogined", isLogined);
