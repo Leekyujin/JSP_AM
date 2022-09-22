@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.KoreaIT.java.am.service.ArticleService;
-import com.KoreaIT.java.am.util.DBUtil;
-import com.KoreaIT.java.am.util.SecSql;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.KoreaIT.java.am.dao.ArticleDao;
-import com.KoreaIT.java.am.util.DBUtil;
 import com.KoreaIT.java.am.util.SecSql;
 
 public class ArticleService {
@@ -13,7 +12,7 @@ public class ArticleService {
 	private ArticleDao articleDao;
 	
 	public ArticleService(Connection conn) {
-		this.conn = conn;
+		this.articleDao = new ArticleDao(conn);
 	}
 	
 	public int getItemsInAPage() {
@@ -23,11 +22,8 @@ public class ArticleService {
 	public int getForPrintListTotalPage() {
 		
 		int itemsInAPage = getItemsInAPage();
-
-		SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt");
-		sql.append("FROM article");
-
-		int totalCount = DBUtil.selectRowIntValue(conn, sql);
+		
+		int totalCount = articleDao.getTotalCount();
 		int totalPage = (int) Math.ceil((double) totalCount / itemsInAPage);
 		
 		return totalPage;
@@ -46,7 +42,7 @@ public class ArticleService {
 		sql.append("ORDER BY A.id DESC");
 		sql.append("LIMIT ?, ?", limitFrom, itemsInAPage);
 
-		List<Map<String, Object>> articleRows = DBUtil.selectRows(conn, sql);
+		List<Map<String, Object>> articleRows = articleDao.getArticleRows(itemsInAPage, limitFrom);
 
 		return articleRows;
 	}
