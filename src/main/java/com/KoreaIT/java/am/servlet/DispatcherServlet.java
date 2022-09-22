@@ -28,6 +28,14 @@ public class DispatcherServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
+		String requestUri = request.getRequestURI();
+		String[] requestUriBits = requestUri.split("/");
+
+		if (requestUriBits.length < 5) {
+			response.getWriter().append("올바른 요청이 아닙니다.");
+			return;
+		}
+		
 		// DB 연결
 
 		Connection conn = null;
@@ -95,14 +103,6 @@ public class DispatcherServlet extends HttpServlet {
 			request.setAttribute("totalPage", totalPage);
 			request.setAttribute("articleRows", articleRows);
 			request.getRequestDispatcher("/jsp/article/list.jsp").forward(request, response);
-			
-			String requestUri = request.getRequestURI();
-			String[] requestUriBits = requestUri.split("/");
-
-			if (requestUriBits.length < 5) {
-				response.getWriter().append("올바른 요청이 아닙니다.");
-				return;
-			}
 			
 			String controllerName = requestUriBits[3];
 			String actionMethodName = requestUriBits[4];
