@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Map;
 
 import com.KoreaIT.java.am.config.Config;
 import com.KoreaIT.java.am.controller.ArticleController;
+import com.KoreaIT.java.am.exception.SQLErrorException;
 import com.KoreaIT.java.am.util.DBUtil;
 import com.KoreaIT.java.am.util.SecSql;
 
@@ -27,7 +27,7 @@ public class DispatcherServlet extends HttpServlet {
 
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		
+
 		String requestUri = request.getRequestURI();
 		String[] requestUriBits = requestUri.split("/");
 
@@ -35,7 +35,7 @@ public class DispatcherServlet extends HttpServlet {
 			response.getWriter().append("올바른 요청이 아닙니다.");
 			return;
 		}
-		
+
 		// DB 연결
 
 		Connection conn = null;
@@ -53,7 +53,8 @@ public class DispatcherServlet extends HttpServlet {
 
 		try {
 			conn = DriverManager.getConnection(Config.getDBUrl(), Config.getDBUser(), Config.getDBPassword());
-			
+
+			// 모든 요청에 응답 하기 전에 무조건 해야함
 			HttpSession session = request.getSession();
 
 			boolean isLogined = false;
@@ -73,42 +74,12 @@ public class DispatcherServlet extends HttpServlet {
 			request.setAttribute("loginedMemberId", loginedMemberId);
 			request.setAttribute("loginedMemebrRow", loginedMemebrRow);
 
-			int page = 1;
-			
-			if (request.getParameter("page") != null && request.getParameter("page").length() != 0) {
-				page = Integer.parseInt(request.getParameter("page"));
-			}
-			
-			int itemsInAPage = 10;
-			
-			int limitFrom = (page - 1) * itemsInAPage;
-			
-			SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt");
-			sql.append("FROM article");
-			
-			int totalCount = DBUtil.selectRowIntValue(conn, sql);
-			int totalPage = (int) Math.ceil((double)totalCount / itemsInAPage);
-
-			sql = SecSql.from("SELECT A.*, M.name AS writer");
-			sql.append("FROM article AS A");
-			sql.append("INNER JOIN `member` AS M");
-			sql.append("ON A.memberId = M.id");
-			sql.append("ORDER BY id DESC");
-			sql.append("LIMIT ?, ?", limitFrom, itemsInAPage);
-
-			List<Map<String, Object>> articleRows = DBUtil.selectRows(conn, sql);
-			
-			request.setAttribute("page", page);
-			request.setAttribute("totalPage", totalPage);
-			request.setAttribute("articleRows", articleRows);
-			request.getRequestDispatcher("/jsp/article/list.jsp").forward(request, response);
-			
 			String controllerName = requestUriBits[3];
 			String actionMethodName = requestUriBits[4];
-			
+
 			if (controllerName.equals("article")) {
 				ArticleController articleController = new ArticleController(request, response, conn);
-				
+
 				if (actionMethodName.equals("list")) {
 					articleController.showList();
 				}
@@ -116,6 +87,8 @@ public class DispatcherServlet extends HttpServlet {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (SQLErrorException e) {
+			e.getOrigin().printStackTrace();
 		} finally {
 			try {
 				if (conn != null && !conn.isClosed()) {
@@ -126,7 +99,7 @@ public class DispatcherServlet extends HttpServlet {
 			}
 		}
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
